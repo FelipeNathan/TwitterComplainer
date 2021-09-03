@@ -1,0 +1,19 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.5.10'
+    id 'application'
+}
+
+mainClassName = "br.com.twittercomplainer.MainApplication"
+
+group 'br.com.twittercomplainer'
+version '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.5.21'
+
+    implementation 'io.github.redouane59.twitter:twittered:2.8'
+}
