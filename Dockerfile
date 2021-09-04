@@ -11,7 +11,7 @@ RUN echo "Building project"
 CMD gradle clean assemble --debug --info --stacktrace
 
 RUN echo "Unpacking project"
-RUN unzip build/distributions/TwitterComplainer-1.0.zip -d build/distributions/app/
+RUN unzip /home/project/build/distributions/TwitterComplainer-1.0.zip -d /home/project/build/distributions/app/
 
 # Application
 FROM openjdk:11-jre-slim
