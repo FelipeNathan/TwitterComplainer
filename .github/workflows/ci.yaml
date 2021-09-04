@@ -25,8 +25,8 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Install zip
-        run: sudo apt-get install zip
+      - name: Install unzip
+        run: sudo apt-get install unzip
 
       - name: Build container image
         uses: docker/build-push-action@v2
