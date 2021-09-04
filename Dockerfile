@@ -8,10 +8,10 @@ RUN echo "Copying project to $PWD"
 COPY ./ /home/project
 
 RUN echo "Building project"
-CMD gradle clean assemble --debug --info --stacktrace
+CMD ./gradlew clean assemble --debug --info --stacktrace
 
 RUN echo "Unpacking project"
-RUN unzip /home/project/build/distributions/TwitterComplainer-1.0.zip -d /home/project/build/distributions/app/
+RUN unzip build/distributions/TwitterComplainer-1.0.zip -d build/distributions/app/
 
 # Application
 FROM openjdk:11-jre-slim
