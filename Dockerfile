@@ -11,6 +11,7 @@ RUN echo "Building project"
 CMD gradle clean assemble --debug --info --stacktrace
 
 RUN echo "Unpacking project"
+RUN sudo apt-get update
 RUN sudo apt-get install zip unzip
 RUN unzip build/distributions/TwitterComplainer-1.0.zip -d build/distributions/app/
 
