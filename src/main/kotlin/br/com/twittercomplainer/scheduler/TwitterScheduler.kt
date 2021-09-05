@@ -17,12 +17,16 @@ class TwitterScheduler {
                 ChronoUnit.DAYS.between(LAST_RESPONSE_OF_UBER, this)
             }
 
-            val text = buildText(daysWithoutAnswer)
-            LOGGER.info(text)
-
             try {
-                val response = ClientConfiguration.getClient().postTweet(text)
-                LOGGER.info("Tweet posted, id: ${response.id}")
+                var lastTweetId: String? = null
+                buildTweets(daysWithoutAnswer).forEach { tweetText ->
+                    LOGGER.info(tweetText)
+
+                    ClientConfiguration.getClient().postTweet(tweetText, lastTweetId).run {
+                        lastTweetId = id
+                        LOGGER.info("Tweet posted, id: $lastTweetId")
+                    }
+                }
             } catch (ex: Exception) {
                 LOGGER.error("Failed to Post a Tweet: $ex")
             }
@@ -30,16 +34,13 @@ class TwitterScheduler {
         }, INITIAL_DELAY, PERIOD, TimeUnit.DAYS)
     }
 
-    private fun buildText(daysWithoutAnswer: Long) = """
-        Este é um post automático,
-        
-        Hoje faz $daysWithoutAnswer dias que o @Uber_Support não resolve o meu problema e a resposta é sempre a mesma:
-        - Entendemos que esteja frustrado bla bla bla, revise o pedido bla bla bla, entre em contato bla bla bla
-        
-        Infelizmente eu nunca mais vou *conseguir* fazer pedido porque o app me impede!
-        
-        Amanhã a contagem continua, até lá!
-    """.trimIndent()
+    private fun buildTweets(daysWithoutAnswer: Long) = arrayOf(
+        "Hoje faz $daysWithoutAnswer dias que o @Uber_Support não resolve o meu problema e a resposta é sempre a mesma:\n" +
+                " - Entendemos que esteja frustrado bla bla bla, revise o pedido bla bla bla, entre em contato bla bla bla",
+
+        "O que não compreendem, é que eu, infelizmente, nunca mais vou *conseguir* fazer pedido porque o app me impede!\n" +
+                "Amanhã a contagem continua, até lá!"
+    )
 
     companion object {
         const val INITIAL_DELAY = 0L
