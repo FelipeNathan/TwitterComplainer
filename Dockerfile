@@ -8,7 +8,7 @@ RUN echo "Copying project to $PWD"
 COPY ./ /home/project
 
 RUN echo "Building project"
-CMD gradle clean assemble --debug --info --stacktrace
+RUN gradle clean assemble --debug --info --stacktrace
 
 RUN echo "Unpacking project"
 RUN unzip build/distributions/TwitterComplainer-1.0.zip -d build/distributions/app/
