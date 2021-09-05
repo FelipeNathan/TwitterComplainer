@@ -14,6 +14,6 @@ repositories {
 
 dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.5.21'
-
     implementation 'io.github.redouane59.twitter:twittered:2.8'
+    implementation 'org.slf4j:slf4j-simple:1.7.32'
 }

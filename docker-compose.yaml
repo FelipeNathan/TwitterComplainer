@@ -1,0 +1,9 @@
+version: '3.3'
+services:
+  app:
+    container_name: twittercomplainer
+    environment:
+      TWITTER_TOKEN: ${TWITTER_TOKEN}
+      TWITTER_TOKEN_SECRET: ${TWITTER_TOKEN_SECRET}
+      TWITTER_API_KEY: ${TWITTER_API_KEY}
+      TWITTER_API_SECRET_KEY: ${TWITTER_API_SECRET_KEY}
