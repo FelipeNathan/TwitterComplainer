@@ -35,10 +35,10 @@ class TwitterScheduler {
     }
 
     private fun buildTweets(daysWithoutAnswer: Long) = arrayOf(
-        "Hoje faz $daysWithoutAnswer dias que o @Uber_Support não resolve o meu problema e a resposta é sempre a mesma:\n" +
+        "[POST AUTOMÁTICO]\n\nHoje faz $daysWithoutAnswer dias que o @Uber_Support não resolve o meu problema e a resposta é sempre a mesma:\n" +
                 " - Entendemos que esteja frustrado bla bla bla, revise o pedido bla bla bla, entre em contato bla bla bla",
 
-        "O que não compreendem, é que eu, infelizmente, nunca mais vou *conseguir* fazer pedido porque o app me impede!\n" +
+        "O que não compreendem é que, infelizmente, nunca mais vou *conseguir* fazer pedido porque o app me impede!\n" +
                 "Amanhã a contagem continua, até lá!"
     )
 
