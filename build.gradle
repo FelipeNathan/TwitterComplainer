@@ -1,12 +1,22 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.5.10'
     id 'application'
+    id 'org.springframework.boot' version '2.5.4'
+    id "org.jetbrains.kotlin.plugin.allopen" version "1.5.30"
 }
 
 mainClassName = "br.com.twittercomplainer.MainApplication"
 
 group 'br.com.twittercomplainer'
 version '1.0'
+
+allOpen {
+    annotation("org.springframework.stereotype.Component")
+    annotation("org.springframework.stereotype.Service")
+    annotation("org.springframework.stereotype.Repository")
+    annotation("org.springframework.context.annotation.Configuration")
+    annotation("org.springframework.context.annotation.ComponentScan")
+}
 
 repositories {
     mavenCentral()
@@ -15,5 +25,6 @@ repositories {
 dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.5.21'
     implementation 'io.github.redouane59.twitter:twittered:2.8'
-    implementation 'org.slf4j:slf4j-simple:1.7.32'
+    implementation 'org.springframework.boot:spring-boot-starter:2.5.4'
+    implementation 'com.google.code.gson:gson:2.8.8'
 }

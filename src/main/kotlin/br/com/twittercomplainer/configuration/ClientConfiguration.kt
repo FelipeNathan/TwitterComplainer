@@ -2,16 +2,25 @@ package br.com.twittercomplainer.configuration
 
 import io.github.redouane59.twitter.TwitterClient
 import io.github.redouane59.twitter.signature.TwitterCredentials
+import org.springframework.boot.context.properties.ConfigurationProperties
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
 
-object ClientConfiguration {
+@Configuration
+class ClientConfiguration {
 
-    fun getClient() =
+    @Bean
+    @ConfigurationProperties(prefix = "twitter")
+    fun getTwitterProperties() = TwitterProperties()
+
+    @Bean
+    fun getClient(twitterProperties: TwitterProperties) =
         TwitterClient(
             TwitterCredentials.builder()
-                .accessToken(System.getenv("TWITTER_TOKEN"))
-                .accessTokenSecret(System.getenv("TWITTER_TOKEN_SECRET"))
-                .apiKey(System.getenv("TWITTER_API_KEY"))
-                .apiSecretKey(System.getenv("TWITTER_API_SECRET_KEY"))
+                .accessToken(twitterProperties.token)
+                .accessTokenSecret(twitterProperties.tokenSecret)
+                .apiKey(twitterProperties.apiKey)
+                .apiSecretKey(twitterProperties.apiSecretKey)
                 .build()
         )
 }
