@@ -29,7 +29,7 @@ class TwitterRunnable(
                 val finalText = tweetText.replace("{{daysWithoutAnswer}}", "$daysWithoutAnswer")
                 LOGGER.info(finalText)
 
-                twitterClient.postTweet(tweetText, lastTweetId).run {
+                twitterClient.postTweet(finalText, lastTweetId).run {
                     lastTweetId = id
                     LOGGER.info("Tweet posted, id: $lastTweetId")
                 }
