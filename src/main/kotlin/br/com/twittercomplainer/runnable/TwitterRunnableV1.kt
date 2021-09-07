@@ -2,12 +2,12 @@ package br.com.twittercomplainer.runnable
 
 import br.com.twittercomplainer.model.PostV1
 import io.github.redouane59.twitter.TwitterClient
+import org.slf4j.LoggerFactory
 import java.security.InvalidParameterException
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.temporal.ChronoUnit
-import org.slf4j.LoggerFactory
 
 class TwitterRunnableV1(
     private val post: PostV1,
@@ -19,13 +19,15 @@ class TwitterRunnableV1(
     }
 
     private val daysWithoutAnswer
-        get() = post.lastAnswer?.let {
-            LocalDateTime.now().run {
-                val lastResponse =
-                    DATE_FORMAT.parse(post.lastAnswer).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
-                ChronoUnit.DAYS.between(lastResponse, this)
+        get() = post.lastAnswer
+            ?.takeIf { it != "" }
+            ?.let {
+                LocalDateTime.now().run {
+                    val lastResponse =
+                        DATE_FORMAT.parse(post.lastAnswer).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
+                    ChronoUnit.DAYS.between(lastResponse, this)
+                }
             }
-        }
 
     override fun run() {
         try {
