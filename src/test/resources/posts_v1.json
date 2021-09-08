@@ -1,0 +1,12 @@
+{
+  "posts_v1" : [
+    {
+      "cron": "0 0 12 * * ?",
+      "lastAnswer": "2021-08-16 00:00:00",
+      "texts": [
+        "[POST AUTOMÁTICO]\n\nHoje faz {{daysWithoutAnswer}} dias que o Uber_Support não resolve o meu problema e a resposta é sempre a mesma:\n - Entendemos que esteja frustrado bla bla bla, revise o pedido bla bla bla, entre em contato bla bla bla\n",
+        "O que não compreendem é que, infelizmente, nunca mais vou *conseguir* fazer pedido porque o app me impede!\\n\nAmanhã a contagem continua, até lá!"
+      ]
+    }
+  ]
+}
