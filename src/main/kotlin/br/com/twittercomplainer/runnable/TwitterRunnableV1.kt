@@ -20,7 +20,7 @@ class TwitterRunnableV1(
 
     private val daysWithoutAnswer
         get() = post.lastAnswer
-            ?.takeIf { it != "" }
+            ?.takeIf { it.isNotBlank() }
             ?.let {
                 LocalDateTime.now().run {
                     val lastResponse =
