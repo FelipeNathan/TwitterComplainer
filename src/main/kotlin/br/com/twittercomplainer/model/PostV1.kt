@@ -1,7 +1,10 @@
 package br.com.twittercomplainer.model
 
-data class PostV1 (
-    val cron: String,
-    val lastAnswer: String?,
-    val texts: List<String>
+import org.bson.types.ObjectId
+
+data class PostV1(
+    var id: ObjectId? = null,
+    var cron: String? = null,
+    var lastAnswer: String? = null,
+    var texts: List<String> = listOf()
 )

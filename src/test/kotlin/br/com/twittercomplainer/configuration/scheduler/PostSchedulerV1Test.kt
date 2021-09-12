@@ -1,9 +1,8 @@
 package br.com.twittercomplainer.configuration.scheduler
 
 import br.com.twittercomplainer.model.PostV1
-import br.com.twittercomplainer.persistence.PostRepository
+import br.com.twittercomplainer.persistence.PostCollection
 import io.github.redouane59.twitter.TwitterClient
-import io.github.redouane59.twitter.dto.tweet.Tweet
 import io.kotest.core.spec.IsolationMode
 import io.kotest.core.spec.style.BehaviorSpec
 import io.mockk.every
@@ -12,14 +11,14 @@ import io.mockk.verify
 import org.springframework.scheduling.config.ScheduledTask
 import org.springframework.scheduling.config.ScheduledTaskRegistrar
 
-class TwitterSchedulerV1Test : BehaviorSpec() {
+class PostSchedulerV1Test : BehaviorSpec() {
 
-    private val postRepository: PostRepository = mockk(relaxed = true)
+    private val postCollection: PostCollection = mockk(relaxed = true)
     private val twitterClient: TwitterClient = mockk()
     private val taskRegistrar: ScheduledTaskRegistrar = mockk()
     private val scheduledTask: ScheduledTask = mockk()
 
-    private val scheduler = TwitterSchedulerV1(postRepository, twitterClient)
+    private val scheduler = PostSchedulerV1(postCollection, twitterClient)
 
     override fun isolationMode() = IsolationMode.InstancePerLeaf
 
@@ -30,7 +29,7 @@ class TwitterSchedulerV1Test : BehaviorSpec() {
         Given("Loaded posts") {
             When("Have posts") {
 
-                every { postRepository.loadPostsV1() } returns posts
+                every { postCollection.findAll() } returns posts
                 every { taskRegistrar.scheduleTriggerTask(any()) } returns scheduledTask
 
                 scheduler.schedule(taskRegistrar)
@@ -41,7 +40,7 @@ class TwitterSchedulerV1Test : BehaviorSpec() {
             }
 
             When("Have no posts") {
-                every { postRepository.loadPostsV1() } returns listOf()
+                every { postCollection.findAll() } returns mutableListOf()
 
                 scheduler.schedule(taskRegistrar)
 
