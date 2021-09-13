@@ -88,7 +88,7 @@ The `mongo-express` is the admin page for management of the database, so let's r
 - Then, you can start the app by `docker-compose up app`
 
 ## Important
-- The texts have the maximum of `280` characteres per tweet
+- The texts have the maximum of `280` characters per tweet
 - Everytime you manage your posts, you have to restart the app, because it create the cron just on startup
 - The `Cron` use the [Spring Cron Expression](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/scheduling/support/CronExpression.html)
 
