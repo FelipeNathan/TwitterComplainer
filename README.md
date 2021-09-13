@@ -7,6 +7,7 @@ This application was made with the objective to 'auto complain' on twitter (I'll
 - <img src="https://img.shields.io/badge/Java-11-blue"></img>
 - <img src="https://img.shields.io/badge/Kotlin-1.5.30-blue"></img>
 - <img src="https://img.shields.io/badge/MongoDB-4.4-blue"></img>
+- An account on developer.twitter [Developer Twitter](https://developer.twitter.com/)
 
 ## Technologies
 
@@ -21,7 +22,7 @@ This application was made with the objective to 'auto complain' on twitter (I'll
 The `mongo-express` is the admin page for management of the database, so let's run:
 
 <details>
-  <summary>Database configuration</summary>
+  <summary>Database Configuration</summary>
   
   - First, let's initialize the database
 
@@ -35,6 +36,18 @@ The `mongo-express` is the admin page for management of the database, so let's r
       - login: root
       - password: admin
   - Create a database called `twitter` and a collection called `posts`
+</details>
+
+<details>
+  <summary>Twitter Client Configuration</summary>
+  
+  - After registering on Twitter Developer, you have to export some environmnet variables to the app can post on twitter
+  - Tokens for your @User on Twitter
+    - TWITTER_TOKEN
+    - TWITTER_TOKEN_SECRET
+  - Keys for the application
+    - TWITTER_API_KEY
+    - TWITTER_API_SECRET_KEY
 </details>
 
 <details>
