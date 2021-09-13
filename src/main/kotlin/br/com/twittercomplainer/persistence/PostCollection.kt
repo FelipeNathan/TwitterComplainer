@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository
 @Repository
 class PostCollection(mongoSettings: MongoClientSettings) : TwitterDatabase<PostV1>(mongoSettings) {
 
-    fun save(post: PostV1) = withConnection {
+    suspend fun save(post: PostV1) = withConnection {
         with(it.getCollection()) {
             when {
                 post.id == null -> insertOne(post)
@@ -19,7 +19,7 @@ class PostCollection(mongoSettings: MongoClientSettings) : TwitterDatabase<PostV
         }
     }
 
-    fun delete(post: PostV1) = post.id?.run { delete(this) }
+    suspend fun delete(post: PostV1) = post.id?.run { delete(this) }
 
     override fun MongoDatabase.getCollection() = getCollection("posts", PostV1::class.java)
 }

@@ -17,18 +17,23 @@ class PostSchedulerV1(
     private val twitterClient: TwitterClient
 ) : TwitterScheduler {
 
-    override fun schedule(taskRegistrar: ScheduledTaskRegistrar) {
+    override suspend fun schedule(taskRegistrar: ScheduledTaskRegistrar) {
 
         postCollection.findAll()
             .also { LOGGER.info("Starting configuration of ${it.size} post schedulers V1") }
             .forEach { post ->
-                val trigger = Trigger { triggerContext ->
-                    CronTrigger(post.cron!!, ZONE_ID).nextExecutionTime(triggerContext)
-                }
+                try {
+                    val trigger = Trigger { triggerContext ->
+                        CronTrigger(post.cron!!, ZONE_ID).nextExecutionTime(triggerContext)
+                    }
 
-                post.run { TwitterRunnableV1(this, twitterClient) }
-                    .run { TriggerTask(this, trigger) }
-                    .run { taskRegistrar.scheduleTriggerTask(this) }
+                    post.run { TwitterRunnableV1(this, twitterClient) }
+                        .run { TriggerTask(this, trigger) }
+                        .run { taskRegistrar.scheduleTriggerTask(this) }
+
+                } catch (ex: Exception) {
+                    LOGGER.error("Failed to schedule post ${post.id}", ex)
+                }
             }
     }
 

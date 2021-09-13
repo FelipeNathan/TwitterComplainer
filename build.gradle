@@ -1,8 +1,21 @@
+buildscript {
+    ext {
+        kotlin_version = '1.5.30'
+        kotlin_coroutines_version = '1.5.2'
+        springboot_version = '2.5.4'
+        twitter_client_version = '2.8'
+        gson_version = '2.8.8'
+        mongo_version = '4.3.2'
+        kotest_version = '4.6.2'
+        mockk_version = '1.12.0'
+    }
+}
+
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.5.10'
+    id 'org.jetbrains.kotlin.jvm' version "$kotlin_version"
+    id "org.jetbrains.kotlin.plugin.allopen" version "$kotlin_version"
     id 'application'
-    id 'org.springframework.boot' version '2.5.4'
-    id "org.jetbrains.kotlin.plugin.allopen" version "1.5.30"
+    id 'org.springframework.boot' version "$springboot_version"
 }
 
 mainClassName = "br.com.twittercomplainer.MainApplication"
@@ -27,12 +40,13 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.5.21'
-    implementation 'io.github.redouane59.twitter:twittered:2.8'
-    implementation 'org.springframework.boot:spring-boot-starter:2.5.4'
-    implementation 'com.google.code.gson:gson:2.8.8'
-    implementation 'org.mongodb:mongodb-driver-sync:4.3.2'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "io.github.redouane59.twitter:twittered:$twitter_client_version"
+    implementation "org.springframework.boot:spring-boot-starter:$springboot_version"
+    implementation "com.google.code.gson:gson:$gson_version"
+    implementation "org.mongodb:mongodb-driver-sync:$mongo_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_version"
 
-    testImplementation 'io.kotest:kotest-runner-junit5:4.6.2'
-    testImplementation 'io.mockk:mockk:1.12.0'
+    testImplementation "io.kotest:kotest-runner-junit5:$kotest_version"
+    testImplementation "io.mockk:mockk:$mockk_version"
 }

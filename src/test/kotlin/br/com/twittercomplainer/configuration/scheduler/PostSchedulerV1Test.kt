@@ -5,9 +5,9 @@ import br.com.twittercomplainer.persistence.PostCollection
 import io.github.redouane59.twitter.TwitterClient
 import io.kotest.core.spec.IsolationMode
 import io.kotest.core.spec.style.BehaviorSpec
-import io.mockk.every
+import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
-import io.mockk.verify
 import org.springframework.scheduling.config.ScheduledTask
 import org.springframework.scheduling.config.ScheduledTaskRegistrar
 
@@ -29,23 +29,23 @@ class PostSchedulerV1Test : BehaviorSpec() {
         Given("Loaded posts") {
             When("Have posts") {
 
-                every { postCollection.findAll() } returns posts
-                every { taskRegistrar.scheduleTriggerTask(any()) } returns scheduledTask
+                coEvery { postCollection.findAll() } returns posts
+                coEvery { taskRegistrar.scheduleTriggerTask(any()) } returns scheduledTask
 
                 scheduler.schedule(taskRegistrar)
 
                 Then("Should log Starting configuration of 1 post schedulers V1") {
-                    verify(exactly = 1) { taskRegistrar.scheduleTriggerTask(any()) }
+                    coVerify(exactly = 1) { taskRegistrar.scheduleTriggerTask(any()) }
                 }
             }
 
             When("Have no posts") {
-                every { postCollection.findAll() } returns mutableListOf()
+                coEvery { postCollection.findAll() } returns mutableListOf()
 
                 scheduler.schedule(taskRegistrar)
 
                 Then("Should log Starting configuration of 1 post schedulers V1") {
-                    verify(exactly = 0) { taskRegistrar.scheduleTriggerTask(any()) }
+                    coVerify(exactly = 0) { taskRegistrar.scheduleTriggerTask(any()) }
                 }
             }
         }
