@@ -8,17 +8,14 @@ services:
       TWITTER_TOKEN_SECRET: ${TWITTER_TOKEN_SECRET}
       TWITTER_API_KEY: ${TWITTER_API_KEY}
       TWITTER_API_SECRET_KEY: ${TWITTER_API_SECRET_KEY}
-      PERSISTENCE_FILE: /opt/app/posts.json # deprecated
-      MONGO_DB_URL: mongodb://root:${MONGO_PASSWORD:-admin}@mongo
-    volumes:
-      - ./posts.json:/opt/app/posts.json # deprecated
+      MONGO_DB_URL: mongodb://${MONGO_USER:-root}:${MONGO_PASSWORD:-admin}@mongo
   mongo:
     image: mongo
     restart: always
     ports:
       - 27017:27017
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER:-root}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD:-admin}
     volumes:
       - ./mongo/db:/data/db
@@ -29,6 +26,6 @@ services:
     ports:
       - 8081:8081
     environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_USER:-root}
       ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_PASSWORD:-admin}
-      ME_CONFIG_MONGODB_URL: mongodb://root:${MONGO_PASSWORD:-admin}@mongo:27017/
+      ME_CONFIG_MONGODB_URL: mongodb://${MONGO_USER:-root}:${MONGO_PASSWORD:-admin}@mongo:27017/
