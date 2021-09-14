@@ -42,7 +42,7 @@ repositories {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "io.github.redouane59.twitter:twittered:$twitter_client_version"
-    implementation "org.springframework.boot:spring-boot-starter:$springboot_version"
+    implementation "org.springframework.boot:spring-boot-starter-amqp:$springboot_version"
     implementation "com.google.code.gson:gson:$gson_version"
     implementation "org.mongodb:mongodb-driver-sync:$mongo_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_version"
