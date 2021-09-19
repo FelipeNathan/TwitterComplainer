@@ -2,6 +2,7 @@ package br.com.twittercomplainer.model
 
 import org.bson.BsonType
 import org.bson.codecs.pojo.annotations.BsonId
+import org.bson.codecs.pojo.annotations.BsonIgnore
 import org.bson.codecs.pojo.annotations.BsonRepresentation
 import org.bson.types.ObjectId
 
@@ -14,5 +15,6 @@ data class PostV1(
     var texts: List<String> = listOf()
 ) {
 
+    @BsonIgnore
     fun getObjectId() = ObjectId(id)
 }

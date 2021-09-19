@@ -4,9 +4,9 @@ import br.com.twittercomplainer.model.PostV1
 import com.mongodb.MongoClientSettings
 import com.mongodb.client.MongoDatabase
 import com.mongodb.client.model.Filters
-import org.springframework.stereotype.Repository
+import org.springframework.stereotype.Component
 
-@Repository
+@Component
 class PostCollection(mongoSettings: MongoClientSettings) : TwitterDatabase<PostV1>(mongoSettings) {
 
     suspend fun save(post: PostV1) = withConnection {

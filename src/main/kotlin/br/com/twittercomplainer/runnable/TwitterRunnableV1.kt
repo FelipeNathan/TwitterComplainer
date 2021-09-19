@@ -15,7 +15,7 @@ class TwitterRunnableV1(
 ) : Runnable {
 
     init {
-        LOGGER.info("Creating one of the Runnable V1")
+        logger.info("Creating one of the Runnable V1")
     }
 
     private val daysWithoutAnswer
@@ -37,16 +37,16 @@ class TwitterRunnableV1(
                 text
                     .also(::validate)
                     .run(::replaceDaysWithoutAnswer)
-                    .also(LOGGER::info)
+                    .also(logger::info)
                     .also {
                         twitterClient.postTweet(it, lastTweetId).run {
                             lastTweetId = id
-                            LOGGER.info("Tweet posted, id: $lastTweetId")
+                            logger.info("Tweet posted, id: $lastTweetId")
                         }
                     }
             }
         } catch (ex: Exception) {
-            LOGGER.error("Failed to Post a Tweet: $ex")
+            logger.error("Failed to Post a Tweet: $ex")
         }
     }
 
@@ -66,6 +66,6 @@ class TwitterRunnableV1(
 
     companion object {
         private val DATE_FORMAT = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-        private val LOGGER = LoggerFactory.getLogger(TwitterRunnableV1::class.java)
+        private val logger = LoggerFactory.getLogger(TwitterRunnableV1::class.java)
     }
 }
