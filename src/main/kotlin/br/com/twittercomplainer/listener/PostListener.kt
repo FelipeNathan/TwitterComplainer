@@ -16,7 +16,7 @@ class PostListener(
 
     @RabbitListener(queues = [QUEUE])
     fun process(message: Message) = runBlocking {
-        postService.saveAndSchedule(message.post())
+        postService.process(message.post())
     }
 
     fun Message.post(): PostV1 = Gson().fromJson(String(this.body), PostV1::class.java)

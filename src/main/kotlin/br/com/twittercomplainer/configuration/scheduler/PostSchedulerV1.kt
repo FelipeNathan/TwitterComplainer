@@ -24,7 +24,7 @@ class PostSchedulerV1(
 
     override suspend fun schedule() {
 
-        postCollection.findAll()
+        postCollection.findAllEnabled()
             .also { logger.info("Starting configuration of ${it.size} post schedulers V1") }
             .forEach { post -> schedule(post) }
     }

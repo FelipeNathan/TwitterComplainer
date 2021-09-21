@@ -13,10 +13,16 @@ class PostService(
     private val postSchedulerV1: PostSchedulerV1
 ) {
 
-    suspend fun saveAndSchedule(post: PostV1) {
+    suspend fun process(post: PostV1) {
+
         try {
             postCollection.save(post)
-            postSchedulerV1.schedule(post)
+
+            if (post.enabled) {
+                postSchedulerV1.schedule(post)
+            } else {
+                postSchedulerV1.cancelScheduledTask(post.id!!)
+            }
         } catch (ex: Exception) {
             logger.error("Failed to save and/or schedule post ${post.id}")
             throw ex

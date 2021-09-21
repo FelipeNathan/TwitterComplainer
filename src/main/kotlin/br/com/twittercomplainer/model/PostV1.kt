@@ -12,7 +12,8 @@ data class PostV1(
     var id: String? = null,
     var cron: String? = null,
     var lastAnswer: String? = null,
-    var texts: List<String> = listOf()
+    var texts: List<String> = listOf(),
+    var enabled: Boolean = true
 ) {
 
     @BsonIgnore
